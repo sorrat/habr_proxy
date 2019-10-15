@@ -1,5 +1,7 @@
 from werkzeug.wrappers import Request, Response
 
+import settings
+
 
 @Request.application
 def application(request):
@@ -8,4 +10,5 @@ def application(request):
 
 if __name__ == '__main__':
     from werkzeug.serving import run_simple
-    run_simple('127.0.0.1', 5000, application, use_debugger=True, use_reloader=True)
+    run_simple(settings.HOST, settings.PORT, application,
+               use_debugger=True, use_reloader=True)
