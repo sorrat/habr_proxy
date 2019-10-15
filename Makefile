@@ -9,5 +9,8 @@ deps:
 serve:
 	gunicorn --reload -w2 -b $(HOST):$(PORT) app:application
 
+serve-debug:
+	python -m app
 
-.PHONY: deps serve
+
+.PHONY: deps serve serve-debug
