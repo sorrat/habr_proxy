@@ -12,5 +12,8 @@ serve:
 serve-debug:
 	python -m app
 
+test:
+	pytest -x --ff --nf
 
-.PHONY: deps serve serve-debug
+
+.PHONY: deps serve serve-debug test
