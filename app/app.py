@@ -1,6 +1,6 @@
 from werkzeug.wrappers import Request, Response
 
-from . import habr_proxy
+import habr_proxy
 
 
 @Request.application
