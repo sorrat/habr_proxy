@@ -1,7 +1,11 @@
+import re
 from urllib.parse import urljoin, urlparse
 
 import requests
 from werkzeug.wrappers import Request, Response
+
+from config import settings
+from .inject_tm import inject_tm_html
 
 
 TARGET_SITE_URL = 'https://habr.com'
@@ -34,6 +38,31 @@ def execute_request(req: Request) -> dict:
     }
 
 
+def localize_page_links(text: str) -> str:
+    return re.sub(
+        r'href="%s' % TARGET_SITE_URL,
+        r'href="%s' % (settings.SITE_URL),
+        text,
+    )
+
+
+def edit_html(content: bytes) -> bytes:
+    if b'doctype' not in content[:10].lower():
+        return content
+    text = content.decode()
+    text = localize_page_links(text)
+    text = inject_tm_html(text)
+    return text.encode()
+
+
+def edit_response(resp: dict) -> dict:
+    return {
+        **resp,
+        'response': edit_html(resp['response']),
+    }
+
+
 def handle_request(req: Request) -> Response:
-    resp_dict = execute_request(req)
-    return Response(**resp_dict)
+    resp = execute_request(req)
+    resp = edit_response(resp)
+    return Response(**resp)

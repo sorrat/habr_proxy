@@ -4,3 +4,6 @@ gunicorn~=19.9.0
 requests~=2.22.0
 requests_mock~=1.7.0
 pytest~=5.2.1
+lxml~=4.4.1
+html5lib~=1.0.1
+beautifulsoup4~=4.8.1

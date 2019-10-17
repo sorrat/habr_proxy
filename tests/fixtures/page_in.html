@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Изменится, хотя вне `body` -->
+  <title>loremi</title>
+  <style>
+      /* Не изменится: это `style` */
+      footer { color }
+  </style>
+
+  <!-- Ничего не изменится: это `script` -->
+  <script type="application/ld+json">
+  {
+  "author": {
+      "@type": "Person",
+      "name": "Сергей Ю. Каменев"
+  },
+  "description": "В этой статье",
+  }
+  </script>
+</head>
+<body>
+  <div class="bmenu">
+    <!-- Изменится только текст, но не ссылка -->
+    <a href="https://toster.ru">Тостер</a>
+  </div>
+
+  <!-- Добавится tm и изменится ссылка -->
+  <a class="abc" href="https://habr.com/ru/post/471600/">Число, лежащее в основе современной музыки</a>
+
+  <a href="http://example.org">
+    <span>Разное</span>
+    <!-- HTML entity корректно обработается -->
+    <strong>&plus;5</strong>
+  </a>
+
+  <!-- И тут без изменений -->
+  <script>
+    function(key) {
+      return function() {
+          b=f!=g&&f!=h&&g!=h
+      }
+    }
+  </script>
+
+  <div>
+  Сейчас на фоне уязвимости <strong>Logjam</strong> все в индустрии в очередной раз обсуждают
+  проблемы и особенности TLS. Я хочу воспользоваться этой возможностью, чтобы
+  поговорить об одной из них, а именно — о настройке ciphersiutes.
+  </div>
+  <!-- Изменится, хотя хотя поблизости нет тегов, но находится внутри `body` -->
+  Завтра.
+  <!-- Не изменится, т.к. не полностью из букв -->
+  abcd56
+</body>
+</html>
