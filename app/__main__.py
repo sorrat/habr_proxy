@@ -1,6 +1,6 @@
 from werkzeug.serving import run_simple
 
-from . import settings
+from config import settings
 from .app import application
 
 
