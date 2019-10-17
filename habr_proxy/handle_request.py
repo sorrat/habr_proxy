@@ -4,28 +4,32 @@ import requests
 from werkzeug.wrappers import Request, Response
 
 
-SITE_URL = 'https://habr.com'
-SITE_DOMAIN = urlparse(SITE_URL).netloc
+TARGET_SITE_URL = 'https://habr.com'
+TARGET_SITE_DOMAIN = urlparse(TARGET_SITE_URL).netloc
+
+
+def exclude_keys(dct, keys):
+    return {k: v for k, v in dct.items() if k not in keys}
 
 
 def execute_request(req: Request) -> dict:
-    session = requests.Session()
-    # Подготовка запроса вручную нужна для того,
-    # чтобы избавиться от ненужных заголовков (headers),
-    # которые `requests` добавляет автоматически.
-    habr_req = session.prepare_request(requests.Request(
-        method=req.method,
-        url=urljoin(SITE_URL, req.full_path),
-    ))
-    # TODO: POST запросы
-    habr_req.headers = {
-        **req.headers,
-        'host': SITE_DOMAIN,
+    # TODO: проверить POST запросы
+    habr_req = {
+        'method': req.method,
+        'url': urljoin(TARGET_SITE_URL, req.full_path),
+        'data': req.data,
+        'files': req.files,
+        'cookies': req.cookies,
+        'headers': {
+            **req.headers,
+            'host': TARGET_SITE_DOMAIN,
+        },
     }
-    habr_resp = session.send(habr_req)
+    habr_resp = requests.request(**habr_req)
     return {
         'response': habr_resp.content,
-        'headers': habr_resp.headers.items(),
+        # Удаление заголовка 'Content-Encoding' с неправильным значением
+        'headers': exclude_keys(habr_resp.headers, ['Content-Encoding']),
         'status': habr_resp.status_code,
     }
 
