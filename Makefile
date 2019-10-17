@@ -7,7 +7,7 @@ deps:
 	pip install -r requirements.txt
 
 serve:
-	gunicorn --reload -w2 -b $(HOST):$(PORT) app:application
+	gunicorn -c config/gunicorn.py app:application
 
 serve-debug:
 	python -m app
