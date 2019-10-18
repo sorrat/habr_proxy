@@ -1,6 +1,6 @@
 import re
 
-from habr_proxy.inject_tm import bs4_, lxml_, iter_
+from habr_proxy.inject_tm import bs4_, iter_
 from tests.helpers import read_fixture, html_uniform
 
 
@@ -17,12 +17,6 @@ def _prepare_fixture(name):
 
 INPUT_PAGE = _prepare_fixture('page_in.html')
 EXPECTED_PAGE = _prepare_fixture('page_out.html')
-
-
-def test_inject_tm_html__lxml():
-    result_page = lxml_.inject_tm_html(INPUT_PAGE)
-    assert html_uniform(EXPECTED_PAGE) == html_uniform(result_page
-        .replace('<html xmlns:xlink="http://www.w3.org/1999/xlink">', '<html>'))
 
 
 def test_inject_tm_html__bs4():
