@@ -1,11 +1,10 @@
 import os
-
-from bs4 import BeautifulSoup
 from werkzeug.test import Client
 from werkzeug.wrappers import BaseResponse, Request
 
 from config import root
 from app import application
+from habr_proxy.inject_tm.bs4_ import parse_html
 
 
 def execute_test_request(req: dict) -> Request:
@@ -24,4 +23,4 @@ def read_fixture(name, mode='r'):
 
 
 def html_uniform(html_text) -> str:
-    return BeautifulSoup(html_text, 'html5lib').prettify()
+    return parse_html(html_text).prettify()

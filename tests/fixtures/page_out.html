@@ -25,13 +25,20 @@
     <a href="https://toster.ru">Тостер™</a>
   </div>
 
+  <!-- Не добавится дополнительных namespace -->
+  <span class="post-info__meta-item">
+    <svg class="post-info__meta-icon icon-svg_views" height="9" width="16">
+      <use xlink:href="${proxy_address}/images/1571329138/common-svg-sprite.svg#eye" />
+    </svg>
+  </span>
+
   <!-- Добавится tm и изменится ссылка -->
   <a class="abc" href="${proxy_address}/ru/post/471600/">Число, лежащее в основе™ современной музыки™</a>
 
   <a href="http://example.org">
     <span>Разное™</span>
     <!-- HTML entity корректно обработается -->
-    <strong>+5</strong>
+    <strong>&plus;5</strong>
   </a>
 
   <!-- И тут без изменений -->

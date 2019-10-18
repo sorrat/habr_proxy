@@ -1,5 +1,5 @@
 import lxml.html
-import html5lib
+import html5_parser
 
 from .common import inject_tm
 
@@ -18,9 +18,14 @@ def inject_tm_html(text) -> str:
 # -- helpers
 
 def parse_html(text):
-    # html5lib корректно парсит html-entity
-    opts = {'treebuilder': 'lxml', 'namespaceHTMLElements': False}
-    return html5lib.parse(text, **opts)
+    opts = {
+        'treebuilder': 'lxml',
+        'namespace_elements': False,
+        'keep_doctype': True,
+        'sanitize_names': False,
+        'return_root': True,
+    }
+    return html5_parser.parse(text, **opts)
 
 
 def to_html_string(tree):
